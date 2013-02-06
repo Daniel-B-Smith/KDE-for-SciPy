@@ -99,9 +99,8 @@ eq = ('2/7*sum_{k=0}^2 N((12*k-15/7), (2/7)^2) + \n' +
       '    1/21*sum_{k=8}^10 N(2*k/7, (1/21)^2)')
 discrete_comb.__doc__ = _doc.format(dist='discrete comb', eq=eq)
 
-def asym_double_claw(nsamp=None):
-    if nsamp is None:
-        nsamp = 1
+@nsamp_opt
+def asym_double_claw(nsamp):
     inputs = []
     for k in xrange(2):
         inputs.append((2*k-1, 2/3))
@@ -115,9 +114,8 @@ eq = ('46/100*sum_{k=0}^1 N(2*k-1, (2/3)^2) + 1/300*sum_{k=1}^3 ' +
       'N(-k/2, (1/100)^2)\n    sum_{k=1}^3 N(k/2, (7/100)^2)')
 asym_double_claw.__doc__ = _doc.format(dist='asymmetric double claw', eq=eq)
 
-def outlier(nsamp=None):
-    if nsamp is None:
-        nsamp = 1
+@nsamp_opt
+def outlier(nsamp):
     inputs = [(0, 1), (0, 1/10)]
     counts = rand.multinomial(nsamp, [1/10, 9/10], size=1)[0]
     return _generate(inputs, counts)

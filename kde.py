@@ -41,9 +41,6 @@ def kde(data, N=None, MIN=None, MAX=None):
 
     # The fixed point calculation finds the bandwidth = t_star
     guess = 0.1
-    print 'f(0) = '+str(fixed_point(0, M, I, SqDCTData))
-    print 'f(0.1) = '+str(fixed_point(0.1, M, I, SqDCTData))
-
     try:
         t_star = scipy.optimize.brentq(fixed_point, 0, guess, 
                                        args=(M, I, SqDCTData))
@@ -58,6 +55,7 @@ def kde(data, N=None, MIN=None, MAX=None):
     mesh = [(bins[i]+bins[i+1])/2 for i in xrange(N)]
     bandwidth = sci.sqrt(t_star)*R
     
+    density = density/sci.trapz(density, mesh)
     return bandwidth, mesh, density
 
 def fixed_point(t, M, I, a2):
